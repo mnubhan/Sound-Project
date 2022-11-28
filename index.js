@@ -8,7 +8,7 @@ var sounds = [
   new Audio("sounds/crash.mp3"),
 ];
 var arr = [];
-function callCharacter(button) {
+function makeSound(button) {
   switch (button) {
     case "w":
       var tom1 = new Audio("sounds/tom-1.mp3");
@@ -44,16 +44,24 @@ function callCharacter(button) {
   }
 }
 
+function buttonAnimation(currentKey) {
+  var activeButton = document.querySelector("." + currentKey);
+  activeButton.classList.add("pressed");
+  setTimeout(() => activeButton.classList.remove("pressed"), 100);
+}
+
 for (var i = 0; i < document.querySelectorAll("button").length; i++) {
   document
     .querySelectorAll(".drum")
     [i].addEventListener("click", function (event) {
       var mouseClick = event.path[0].innerHTML;
-      callCharacter(mouseClick);
+      makeSound(mouseClick);
+      buttonAnimation(mouseClick);
     });
 }
 
 document.addEventListener("keydown", function (event) {
   var keyPress = event.key;
-  callCharacter(keyPress);
+  makeSound(keyPress);
+  buttonAnimation(keyPress);
 });
